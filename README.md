@@ -32,4 +32,51 @@ ng generate service heros
     8. 注射器的生命周期与组件自身保持一致，当组件被销毁的时候，对应的注射器实例也会被销毁。
 ---
 ##### @Injectable 的作用
-打包时会存储一些元信息, 在运行时会根据元信息解析服务, 如果不声明@Injectable的话, 会找不到这个服务
+打包时会存储一些元信息, 在运行时会根据元信息解析服务, 如果不声明@Injectable的话, 会找不到这个服务, angular-cli 在生成文件的时候会默认加上@Injectable
+##### 可以在类中手动用@Inject
+source-code: angular_di/src/app/heros/inject.service.ts
+**注意**
+使用@Inject打包生成的代码会比@Injectable大很多，并不推荐使用
+- 如何在简单对象中使用@Inject
+source-code: angular_di/src/app/heros/my-config.ts
+- 不想与父组件共用一个实例，怎样再生成一个实例
+source-code: angular_di/src/app/heros/self.service.ts
+```js
+// parent-component
+constructor(
+    public idService: SelfService
+  ){
+    console.log("id service: ", idService, idService.id);
+  }
+// child-component
+@Component({
+  // code...
+  providers: [SelfService]
+})
+export class HerosComponent implements OnInit {
+
+  constructor(
+    @Self() public id: SelfService //自己的service
+  ) { }
+```
+##### Optional 会沿着组件树向上找，如果没有找到则返回null，如果组件树上有这个类就返回
+##### @Self() @Optional() public optinal: OptinalService 含义
+会在当前组件寻找服务，找不到就返回null
+##### @SkipSelf() 跳过自身沿着Inject Tree往上找， @SkipSelf 和 @Optional 一起使用
+##### @Host 
+- 在组件内部查找依赖
+- 建立投影组件的关联组件的关联
+##### 手动注册
+```
+userService: UserService;
+  constructor(
+    public inject: Injector
+  ) { }
+
+  ngOnInit() {
+    this.userService = this.inject.get(UserService);
+    console.log(this.inject);
+    console.log(this.userService);
+  }
+
+```

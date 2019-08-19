@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../service/user.service';
+import { SelfService } from 'src/app/service/self.service';
 
 @Component({
   selector: 'app-user-list',
@@ -9,11 +10,13 @@ import { UserService } from '../service/user.service';
 export class UserListComponent implements OnInit {
 
   constructor(
-    public userService: UserService
+    public userService: UserService,
+    public id: SelfService
   ) { }
 
   ngOnInit() {
     console.log(this.userService);
+    console.log("parent", this.id)
   }
 
 }

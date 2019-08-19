@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { InjectService } from './service/inject.service';
+import { SelfService } from './service/self.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-di';
+  constructor(
+    @Inject(InjectService) public inject: InjectService,
+    public idService: SelfService
+  ){
+    console.log(this.inject);
+    console.log("id service: ", idService, idService.id);
+  }
 }
