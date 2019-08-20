@@ -80,3 +80,30 @@ userService: UserService;
   }
 
 ```
+---
+#### 多级注入器
+**注入器**是指Injectable和Inject, 注入器传入元数据,决定他们是哪级供应商等一些基本信息, 配置提供商是指给注入器所在服务指定适用范围,在此范围内注入器可使用, 配置提供商的不同方法会导致 **编译包的大小差异**, **服务的范围**, **服务的生命周期**等
+1. 当你在服务自身的@Injectable中指定服务商时,一般上适用于应用的根一级, 在打包时会进行摇树优化
+2. NgModule级的提供商可以在自己的providers中指定服务, 还可以在服务内的provideIn中指定模块(不能指定AppModule)
+  - 懒加载模块, 使用providers指定服务, 加载这个模块时, 就会用这儿的配置服务, 如果服务本身的 provideIn指向了 自己的懒加载模块, 如果该提供商没有被使用过, 那在打包编译的时候就会被摇树优化掉
+  - 服务实例的生存周期取决于 **所依赖模块的生命周期**
+3. 组件级提供商, 服务随着组件的生命周期
+```js
+import { Injectable } from '@angular/core';
+import { HeroModule } from './hero.module';
+import { HEROES } from './mock-heroes';
+
+@Injectable({
+  // we declare that this service should be created
+  // by any injector that includes HeroModule.
+  providedIn: HeroModule,// 'root'
+})
+export class HeroService {
+  getHeroes() { return HEROES; }
+}
+// 通过provideIn注册 或者 通过NgModule来注册服务 这两种方式没有什么区别, 主要区别是 通过provideIn注册时可能会被摇树优化掉的, 在一些第三方库中, 当不确认用户是否使用时 使用provideIn注册即可
+```
+---
+##### 组件注入器的应用
+1. 组件 a, b, c都是用了 d 服务上的数据, e组件需要修改d服务上的数据, 这个时候就需要**服务隔离**, e组件自己注册d服务并使用
+2. 编辑框的状态保存, 每个实例化组件都有私有服务,私有服务负责存储状态

@@ -58,7 +58,9 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-di:build"
+            "browserTarget": "angular-di:build",
+            "port": 8080,
+            "open": true
           },
           "configurations": {
             "production": {
