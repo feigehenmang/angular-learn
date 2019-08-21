@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { InjectService } from './service/inject.service';
 import { SelfService } from './service/self.service';
 import { MyConfig } from './service/my-config';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -13,10 +14,20 @@ export class AppComponent {
   constructor(
     @Inject(InjectService) public inject: InjectService,
     public idService: SelfService,
-    public config: MyConfig
+    public http: HttpClient
+    // public config: MyConfig
   ) {
     console.log(this.inject);
     console.log('id service: ', idService, idService.id);
-    console.log(config);
+    // console.log(config);
+  }
+  Click(){
+    // console.log(1);
+    this.http.get("assets/data.json", {
+      params: {
+        a: "1"
+      }
+    })
+    .subscribe(res=>console.log(res));
   }
 }
