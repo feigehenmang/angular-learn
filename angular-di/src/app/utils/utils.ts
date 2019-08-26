@@ -68,7 +68,7 @@ export const utils: Utils = {
         return result;
     },
     validateRes(res: CustomResponse): boolean {
-        if (res.successful && utils.validateNull(res.resultValue)){
+        if (res.successful && utils.validateNull(res.resultValue)) {
             return true;
         }
         return false;
