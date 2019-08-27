@@ -10,7 +10,7 @@ import { InjectComponent } from './Inject/inject/inject.component';
 import { MyConfig, MYCONFIG } from './service/my-config';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NoopInterceptor } from './interceptor/hc-interceptor';
-import { DevextremeModule } from 'devextreme-angular';
+import { DevExtremeModule } from 'devextreme-angular';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +23,7 @@ import { DevextremeModule } from 'devextreme-angular';
     HttpClientModule,
     MatButtonModule,
     UserModule,
-    DevextremeModule
+    DevExtremeModule
   ],
   providers: [
     SelfService,
