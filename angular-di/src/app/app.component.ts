@@ -32,7 +32,7 @@ import{
 } from 'devextreme-angular';
 
 @Component({
-    selector: 'my-app',
+    selector: 'app-root',
     styles: [`
         h1, h2, h3 {
             font-family: 'Helvetica Neue','Segoe UI',Helvetica,Verdana,sans-serif;

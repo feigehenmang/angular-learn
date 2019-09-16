@@ -5,9 +5,10 @@ import { AppComponent } from './app.component';
 import {
     DevExtremeModule
 } from 'devextreme-angular';
+import { MessageComponent } from './message/message.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, MessageComponent],
   imports: [
     BrowserModule,
     DevExtremeModule,
