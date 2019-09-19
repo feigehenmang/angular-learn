@@ -3,7 +3,7 @@ import { InjectService } from './service/inject.service';
 import { SelfService } from './service/self.service';
 import { MyConfig } from './service/my-config';
 import { HttpClient } from '@angular/common/http';
-
+import { utils } from './utils/utils';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,17 +17,18 @@ export class AppComponent {
     public http: HttpClient
     // public config: MyConfig
   ) {
-    console.log(this.inject);
-    console.log('id service: ', idService, idService.id);
+    // console.log(utils.getBytes('你好啊, aiodjwqepqw'));
+    // console.log(this.inject);
+    // console.log('id service: ', idService, idService.id);
     // console.log(config);
   }
-  Click(){
+  Click() {
     // console.log(1);
-    this.http.get("assets/data.json", {
-      params: {
-        a: "1"
-      }
-    })
-    .subscribe(res=>console.log(res));
+    // this.http.get("assets/data.json", {
+    //   params: {
+    //     a: "1"
+    //   }
+    // })
+    // .subscribe(res=>console.log(res));
   }
 }

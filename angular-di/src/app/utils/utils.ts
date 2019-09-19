@@ -1,37 +1,60 @@
-type anyArr = Array<any>;
-interface Utils {
-    /**
-     * validateNull 校验参数是否为空
-     * @param param 要校验的东西
-     * @return 为空返回true, 否则返回false
-     */
-    validateNull: (param: any) => boolean;
-    /**
-     * uniqeCustom 自定义去重
-     * @param arr 要去重的数组
-     * @param cb 回调函数, 根据判断控制去重结果
-     * @return 数组
-     */
-    uniqeCustom: (arr: anyArr, cb: (prev: anyArr, next: any, currIndex: number) => anyArr) => anyArr;
-    /**
-     * deepClone 深拷贝
-     * @param target 要拷贝的东西
-     * @return 返回新对象
-     */
-    deepClone: (target: Array<any> | object | {}) => Array<any> | object | {};
-    /**
-     * validateRes 校验返回值 各个项目需具体配置
-     * @param res 自己项目定义的返回值类型
-     * @return 是否符合规范
-     */
-    validateRes: (res: CustomResponse) => boolean;
-}
-// 自定义返回对象接口
-interface CustomResponse {
-    successful: boolean;
-    resultValue: object;
-}
+import { Utils, DomUtils, insertMode } from './utils.interface';
+
+const inBrowser = typeof window !== 'undefined';
+const ua = inBrowser && window.navigator.userAgent.toLowerCase();
+const isIE = ua && /msie|trident/.test(ua);
+const isIE9 = ua && ua.indexOf('msie 9.0') > 0;
+const isEdge = ua && ua.indexOf('edge/') > 0;
+const isChrome = ua && /chrome\/\d+/.test(ua) && !isEdge;
+export const domUtils: DomUtils = {
+    domCache: {},
+    getSelectorType: (selector) => {
+        const c = selector.charCodeAt(0);
+        return c === 46 ? 1 : c === 35 ? 2 : 0;
+    },
+    query: (selector) => {
+        if (domUtils.domCache[selector]) {
+            return domUtils[selector];
+        } else {
+            const target = document.querySelector(selector);
+            if (target) {
+                domUtils[selector] = target;
+                return target;
+            }
+            const type = domUtils.getSelectorType(selector);
+            let el = null;
+            if (type) {
+                el = document.createElement(selector);
+            } else {
+                el = document.createElement('div');
+                type === 1 ? el.className = selector.substring(1) : el.id = selector.substring(1);
+            }
+            return el;
+        }
+    },
+    push: (target, node) => target.insertAdjacentElement(insertMode.push, node),
+    unshift: (target, node) => target.insertAdjacentElement(insertMode.unshift, node),
+    append: (target, node) => target.insertAdjacentElement(insertMode.append, node),
+    insert: (target, node) => target.insertAdjacentElement(insertMode.insert, node)
+};
 export const utils: Utils = {
+    inBrowser,
+    hasProto: '__proto__' in {},
+    ua,
+    isIE,
+    isIE9,
+    isEdge,
+    isChrome,
+    isReserved: (str) => {
+        const c = (str + '').charCodeAt(0); // charCodeAt(index) 获取到字符串第index位的unicode编码  可以用来区别汉字和其他内容  汉字unicode小于等于256
+        return c === 0x24 || c === 0x5f;
+    },
+    getBytes: (str) => str.split('').reduce((prev, next) => (!(Number((next + '').charAt(0)) <= 256) ? prev + 2 : prev + 1), 0),
+    getRandom: (n, m) => parseInt(Math.random() * (m - n) + n + '', 10),
+    getRandomColor: (opacity) => {
+        opacity = opacity <= 1 ? opacity : (opacity / 100);
+        return `rgba(${utils.getRandom(0, 256)},${utils.getRandom(0, 256)},${utils.getRandom(0, 256)},${opacity})`;
+    },
     validateNull: (val) => {
         if (typeof val === 'boolean') {
             return false;
@@ -67,10 +90,40 @@ export const utils: Utils = {
         }
         return result;
     },
-    validateRes(res: CustomResponse): boolean {
+    validateRes(res): boolean {
         if (res.successful && utils.validateNull(res.resultValue)) {
             return true;
         }
         return false;
+    },
+    formatDate:  (oldDate, fmt) => {
+        let date = new Date();
+        if (typeof oldDate === 'string' || typeof oldDate === 'number') {
+            date = new Date(+oldDate);
+        } else {
+            date = oldDate;
+        }
+        if (/(y+)/.test(fmt)) {
+            fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
+        }
+        const o = {
+            'M+': date.getMonth() + 1,
+            'd+': date.getDate(),
+            'h+': date.getHours(),
+            'm+': date.getMinutes(),
+            's+': date.getSeconds()
+        };
+
+        for (const k in o) {
+            if (new RegExp(`(${k})`).test(fmt)) {
+                const str = o[k] + '';
+                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? str : utils.padLeftZero(str));
+            }
+        }
+        return fmt;
+    },
+    padLeftZero: (str) => {
+      return ('00' + str).substr(str.length);
     }
 };
+// console.log(utils);
