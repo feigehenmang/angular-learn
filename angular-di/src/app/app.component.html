@@ -2,6 +2,10 @@
     <app-user-list></app-user-list>
 </app-heros>
 <app-inject></app-inject>
-<button on-click="Click()" mat-button>Click me!</button>
+<button appTestDirective on-click="Click()" mat-button>Click me!</button>
 <!-- <dx-text-box></dx-text-box> -->
+<app-outer-side >
+    <app-inner></app-inner>
+</app-outer-side>
+<div appMyDrag></div>
 <router-outlet></router-outlet>

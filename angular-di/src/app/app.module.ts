@@ -7,25 +7,35 @@ import { HerosComponent } from './heros/heros.component';
 import { UserModule } from './user/user.module';
 import { SelfService } from './service/self.service';
 import { InjectComponent } from './Inject/inject/inject.component';
-import { MyConfig, MYCONFIG } from './service/my-config';
+// import { MyConfig, MYCONFIG } from './service/my-config';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NoopInterceptor } from './interceptor/hc-interceptor';
 import { EditorModule } from './utils/editor/editor.module';
+import { OuterSideComponent } from './components/outer-side/outer-side.component';
+import { InnerComponent } from './components/inner/inner.component';
+// import { TestDirectiveDirective } from './directives/test-directive.directive';
+import { CommonDirectiveModule } from './directives/common-directive/common-directive.module';
+import { MyDragDirective } from './directives/my-drag.directive';
 // import { DevExtremeModule } from 'devextreme-angular';
 @NgModule({
   declarations: [
     AppComponent,
     HerosComponent,
-    InjectComponent
+    InjectComponent,
+    OuterSideComponent,
+    InnerComponent,
+    MyDragDirective,
+    // TestDirectiveDirective
   ],
   imports: [
-  BrowserModule,
+BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     MatButtonModule,
     UserModule,
     // DevExtremeModule,
-    EditorModule
+    EditorModule,
+    CommonDirectiveModule
   ],
   providers: [
     SelfService,
