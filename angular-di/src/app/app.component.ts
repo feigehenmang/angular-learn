@@ -24,12 +24,15 @@ import {
     Appointment,
     AppointmentService
 } from './appointment.service';
-import{
+import {
     OwnerService
 } from './owner.service';
-import{
+import {
     DxPopoverComponent
 } from 'devextreme-angular';
+
+import { BaseService } from 'base';
+
 
 @Component({
     selector: 'app-root',
@@ -94,7 +97,8 @@ import{
         OrangeService,
         CustomerService,
         AppointmentService,
-        OwnerService
+        OwnerService,
+        BaseService
     ]
 })
 export class AppComponent implements OnInit, AfterViewInit {
@@ -147,20 +151,23 @@ export class AppComponent implements OnInit, AfterViewInit {
     tabPanelItems: Customer[];
     tabContent: string;
     constructor(private orangeService: OrangeService,
-        private customerService: CustomerService,
-        private appointmentService: AppointmentService,
-        private ownerService: OwnerService) {
-        this.text = 'Text in textbox';
-        this.boolValue = true;
-        this.numberValue = 10;
-        this.dateValue = new Date();
-        this.currentDate = new Date(2015, 4, 25);
-        this.demoItems = [
-            'item1',
-            'item2',
-            'item3'
-        ];
-        this.tabContent = this.tabs[0].content;
+                private customerService: CustomerService,
+                private appointmentService: AppointmentService,
+                private ownerService: OwnerService,
+                base: BaseService
+        ) {
+            console.log('base', base);
+            this.text = 'Text in textbox';
+            this.boolValue = true;
+            this.numberValue = 10;
+            this.dateValue = new Date();
+            this.currentDate = new Date(2015, 4, 25);
+            this.demoItems = [
+                'item1',
+                'item2',
+                'item3'
+            ];
+            this.tabContent = this.tabs[0].content;
     }
     helloWorld() {
         alert('Hello world');
@@ -168,14 +175,16 @@ export class AppComponent implements OnInit, AfterViewInit {
     buy(model) {
         alert(model + ' has been added to order');
     }
-    callNumber(number) {
-        alert(number + ' is being called...');
+    callNumber(num) {
+        alert(num + ' is being called...');
     }
     updateEmailControl(e) {
-        this.form.controls['emailControl'].setValue(e.value);
+        const email = 'emailControl';
+        this.form.controls[email].setValue(e.value);
     }
     updatePasswordControl(e) {
-        this.form.controls['passwordControl'].setValue(e.value);
+        const pass = 'passwordControl';
+        this.form.controls[pass].setValue(e.value);
     }
     toggleFormControlsState(e) {
         if (e.value) {
@@ -192,7 +201,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         return false;
     }
     validate(params) {
-        let result = params.validationGroup.validate();
+        const result = params.validationGroup.validate();
         if (result.isValid) {
             alert('Form data is valid');
         } else {
@@ -204,8 +213,10 @@ export class AppComponent implements OnInit, AfterViewInit {
             emailControl: new FormControl('', Validators.compose([Validators.required, CustomValidator.mailFormat])),
             passwordControl: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)]))
         });
-        this.emailControl = this.form.controls['emailControl'];
-        this.passwordControl = this.form.controls['passwordControl'];
+        const mail = 'emailControl';
+        const pass = 'passwordControl';
+        this.emailControl = this.form.controls[mail];
+        this.passwordControl = this.form.controls[pass];
         this.oranges = this.orangeService.getOranges();
         this.customers = this.customerService.getCustomers();
         this.appointments = this.appointmentService.getAppointments();
@@ -237,7 +248,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
 export class CustomValidator {
     static mailFormat(control: FormControl) {
-        let EMAIL_REGEXP = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
+        const EMAIL_REGEXP = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
 
         if (control.value && control.value.length && (control.value.length <= 5 || !EMAIL_REGEXP.test(control.value))) {
             return { 'incorrectMailFormat': true };
