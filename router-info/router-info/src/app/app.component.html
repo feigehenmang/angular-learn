@@ -1,6 +1,9 @@
 <ul>
   <li>
-    <a [routerLink]="[ '/first-load' ]">懒加载模块</a>
+    <span [routerLinkActive]="'active'"  [routerLinkActiveOptions]='{exact: true}' [routerLink]="[ '/first-load' ]">懒加载模块</span>
+    <a [routerLinkActive]="'active'" [routerLinkActiveOptions]='{exact: true}'  [routerLink]="[ '/first-load', 'high', '12' ]">high</a>
+    <a [routerLinkActive]="'active'"  [routerLinkActiveOptions]='{exact: true}' [routerLink]="[ '/first-load', 'high', '11' ]">11</a>
+    <a [routerLinkActive]="'active'"  [routerLinkActiveOptions]='{exact: true}' [routerLink]="[ '/first-load', 'second' ]">懒加载模块</a>
   </li>
 </ul>
 <router-outlet></router-outlet>
