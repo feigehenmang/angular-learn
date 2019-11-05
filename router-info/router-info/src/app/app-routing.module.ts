@@ -15,6 +15,14 @@ const routes: Routes = [
     // outlet: 'popo'
   },
   {
+    path: 'template',
+    loadChildren: './template/template.module#TemplateModule',
+    data: {
+      title: '懒加载模块',
+      preload: false
+    },
+  },
+  {
     path: '**',
     component: PageNotFundComponent
   }

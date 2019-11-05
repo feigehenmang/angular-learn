@@ -5,7 +5,9 @@
     <!-- <span [routerLinkActive]="'active'"  [routerLinkActiveOptions]='{exact: true}' [routerLink]="[ {outlets: {popo: 'first-load'}} ]">懒加载模块</span> -->
     <a [routerLinkActive]="'active'" [routerLinkActiveOptions]='{exact: true}'  [routerLink]="[ '/first-load', 'high', '12' ]">high</a>
     <a [routerLinkActive]="'active'"  [routerLinkActiveOptions]='{exact: true}' [routerLink]="[ '/first-load', 'high', '11' ]">11</a>
-    <a [routerLinkActive]="'active'"  [routerLinkActiveOptions]='{exact: true}' [routerLink]="[ '/first-load', 'second' ]">懒加载模块</a>
+    <a [routerLinkActive]="'active'" [routerLinkActiveOptions]='{exact: true}'
+       [routerLink]="[ '/first-load', 'second' ]">懒加载模块</a>
+    <a [routerLinkActive]="'active'"  [routerLinkActiveOptions]='{exact: true}' [routerLink]="[ '/template' ]">Template</a>
   </li>
 </ul>
 <div [@routeAnimation]='getAnimationData(routerOutlet)'>

@@ -1,0 +1,26 @@
+{{nullHero?.age}}
+<div on-click='log()' bind-innerHtml='title'>
+
+</div>
+{{evilTitle}}
+<br/>
+<span bind-innerHtml='evilTitle'></span>
+
+<app-size [(num)]="size" ></app-size>
+
+<ul>
+  <li *ngFor='let item of items; index as i; first as isFirst; last as isLast; trackBy: trackByFn; $implicit as imp'>
+    {{isFirst}} {{isLast}}{{i}}:{{item}}     {{imp}}
+  </li>
+</ul>
+
+<input *ngFor='let item of checkItems;' value="{{item.value}}" [(ngModel)]="item.checked" type="checkbox" />
+
+
+<div [ngSwitch]='switchCase'>
+  <span *ngSwitchCase='"a"'>当前switchCase为: a</span>
+  <span *ngSwitchCase='"b"'>当前switchCase为: b</span>
+  <span *ngSwitchCase='"c"'>当前switchCase为: c</span>
+  <span *ngSwitchCase='"d"'>当前switchCase为: d</span>
+  <span *ngSwitchDefault>空</span>
+</div>
