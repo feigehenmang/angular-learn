@@ -1,9 +1,15 @@
 <ul>
   <li>
-    <span [routerLinkActive]="'active'"  [routerLinkActiveOptions]='{exact: true}' [routerLink]="[ '/first-load' ]">懒加载模块</span>
+    <span [routerLinkActive]="'active'" [routerLinkActiveOptions]='{exact: true}'
+          [routerLink]="['/first-load']">懒加载模块</span>
+    <!-- <span [routerLinkActive]="'active'"  [routerLinkActiveOptions]='{exact: true}' [routerLink]="[ {outlets: {popo: 'first-load'}} ]">懒加载模块</span> -->
     <a [routerLinkActive]="'active'" [routerLinkActiveOptions]='{exact: true}'  [routerLink]="[ '/first-load', 'high', '12' ]">high</a>
     <a [routerLinkActive]="'active'"  [routerLinkActiveOptions]='{exact: true}' [routerLink]="[ '/first-load', 'high', '11' ]">11</a>
     <a [routerLinkActive]="'active'"  [routerLinkActiveOptions]='{exact: true}' [routerLink]="[ '/first-load', 'second' ]">懒加载模块</a>
   </li>
 </ul>
-<router-outlet></router-outlet>
+<div [@routeAnimation]='getAnimationData(routerOutlet)'>
+  <!--  name='popo' -->
+  <router-outlet (activate)='onActivate($event)' #routerOutlet='outlet'></router-outlet>
+</div>
+

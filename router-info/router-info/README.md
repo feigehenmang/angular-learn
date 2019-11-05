@@ -63,3 +63,23 @@ queryParams | 即将废弃
     - params 和 paramMap的区别
         1. 都是做了一件事, 都是一个Observable对象
         2. paramMap基于Map封装, 功能更强力, 可以使用 for of循环等Map操作方法
+7. 路由事件
+
+路由器事件 | 说明
+--- | ---
+NavigationStart | 本事件会在导航开始时触发。
+RouteConfigLoadStart | 本事件会在 Router 惰性加载 某个路由配置之前触发。
+RouteConfigLoadEnd | 本事件会在惰性加载了某个路由后触发。
+RoutesRecognized | 本事件会在路由器解析完 URL，并识别出了相应的路由时触发
+GuardsCheckStart | 本事件会在路由器开始 Guard 阶段之前触发。
+ChildActivationStart | 本事件会在路由器开始激活路由的子路由时触发。
+ActivationStart	| 本事件会在路由器开始激活某个路由时触发。
+GuardsCheckEnd | 本事件会在路由器成功完成了 Guard 阶段时触发。
+ResolveStart | 本事件会在 Router 开始解析（Resolve）阶段时触发。
+ResolveEnd | 本事件会在路由器成功完成了路由的解析（Resolve）阶段时触发。
+ChildActivationEnd | 本事件会在路由器激活了路由的子路由时触发。
+ActivationEnd | 本事件会在路由器激活了某个路由时触发。
+NavigationEnd | 本事件会在导航成功结束之后触发。
+NavigationCancel | 本事件会在导航被取消之后触发。 这可能是因为在导航期间某个路由守卫返回了 false。
+NavigationError | 这个事件会在导航由于意料之外的错误而失败时触发。
+Scroll | 本事件代表一个滚动事件。

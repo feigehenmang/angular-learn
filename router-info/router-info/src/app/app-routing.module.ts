@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, UrlSerializer, UrlTree } from '@angular/router';
 import { PreloadAllModules } from './common/preload';
-
+import { PageNotFundComponent } from './common/page-not-fund/page-not-fund.component';
+import { AuthGuard } from './common/auth.guard';
 const routes: Routes = [
   {
     path: 'first-load',
@@ -9,13 +10,19 @@ const routes: Routes = [
     data: {
       title: '懒加载模块',
       preload: true
-    }
+    },
+    canActivate: [AuthGuard]
+    // outlet: 'popo'
+  },
+  {
+    path: '**',
+    component: PageNotFundComponent
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(
-    routes,
+  routes,
     {
       enableTracing: false, // 记录路由器内部事件, 控制台 RouterEvent
       useHash: true, // 是否使用hash
