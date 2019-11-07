@@ -23,6 +23,14 @@ const routes: Routes = [
     },
   },
   {
+    path: 'custom',
+    loadChildren: './custom/custom.module#CustomModule',
+    data: {
+      title: '懒加载模块',
+      preload: false
+    },
+  },
+  {
     path: '**',
     component: PageNotFundComponent
   }

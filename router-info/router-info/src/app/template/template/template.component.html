@@ -1,4 +1,13 @@
 {{nullHero?.age}}
+
+<app-child-view class='red'>
+  <ng-container *ngFor='let item of ["1","2","3","4"]'>
+    <app-app-content [text]="item"></app-app-content>
+  </ng-container>
+  
+</app-child-view>
+<!-- <app-child-view></app-child-view>
+<app-child-view></app-child-view> -->
 <div on-click='log()' bind-innerHtml='title'>
 
 </div>

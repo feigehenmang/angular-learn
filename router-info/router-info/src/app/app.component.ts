@@ -16,7 +16,8 @@ export class AppComponent implements AfterViewInit {
 
   getAnimationData(outlet: RouterOutlet) {
     // console.log(outlet);
-    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
+    const flag = 'animation';
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData[flag];
   }
 
   onActivate(e) {

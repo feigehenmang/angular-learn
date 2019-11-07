@@ -1,0 +1,11 @@
+@import '../../../assets/base.css';
+:host {
+    border: 1px solid red;
+    padding: 5px;
+}
+:host-context(.red) input {
+    border: 1px solid orange;
+}
+:host ::ng-deep .global-red{
+    color: red;
+}

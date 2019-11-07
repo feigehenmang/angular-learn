@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, AfterViewChecked, ViewChild } from '@angular/core';
+import { ChildViewComponent } from './../child-view/child-view.component';
 
 @Component({
   selector: 'app-template',
@@ -6,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./template.component.scss'],
   // interpolation: ['{', '}']
 })
-export class TemplateComponent implements OnInit {
+export class TemplateComponent implements OnInit, AfterViewInit, AfterViewChecked {
+  @ViewChild(ChildViewComponent) childView: ChildViewComponent;
+
   title = 'hello Title';
   evilTitle = 'Template <script>alert("evil never sleeps")</script>Syntax';
   items = ['a', 'b', 'c', 'd'];
@@ -36,10 +39,25 @@ export class TemplateComponent implements OnInit {
   }
   log() {
     console.log(this.checkItems);
+    // this.childView.name = 'hello1';
   }
 
   trackByFn(index, item) {
     // console.log(index, item);
     return index;
+  }
+
+  ngAfterViewInit(): void {
+    // console.log(this.childView);
+    console.log('afterViewInit');
+  }
+  ngAfterViewChecked(): void {
+    console.log(this.childView);
+    console.log('afterViewChecked', '可以监听到子组件的属性发生变化');
+    // setTimeout(
+    //   () => {
+    //     this.childView.obj.name = 'change';
+    //   }, 100
+    // )
   }
 }
