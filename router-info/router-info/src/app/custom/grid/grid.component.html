@@ -1,0 +1,11 @@
+
+<ul>
+  <li *ngFor='let item of dataSource'>
+    {{item.name}}
+    <ng-content></ng-content>
+    <ng-container #container>
+
+    </ng-container>
+  </li>
+</ul>
+

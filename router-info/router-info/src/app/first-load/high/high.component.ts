@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { Observable, pipe } from 'rxjs';
+import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { HighService } from './high.service';
 
@@ -22,10 +22,10 @@ export class HighComponent implements OnInit {
       switchMap(
         (params: ParamMap) => {
           console.log(params.get('id'));
-          return this.service.getHero(+params.get('id'))
+          return this.service.getHero(+params.get('id'));
         }
       )
-    )
+    );
     // console.log(this.router);
     // console.log(this.routerInfo);
     // this.routerInfo.params.subscribe(params => {
@@ -38,5 +38,4 @@ export class HighComponent implements OnInit {
     //   console.log(params);
     // });
   }
-
 }

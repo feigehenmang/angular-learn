@@ -1,1 +1,22 @@
 <!-- <app-active></app-active> -->
+<!-- <app-diy></app-diy> -->
+<h1 *appHide="true" appHigh color='yellow'>
+  {{title}}
+</h1>
+<ng-container #vc>
+
+</ng-container>
+
+<ng-template let-item='item'  #temp>
+  <h2>{{item.prefix}} ---  11111 ---- {{item.after}}</h2>
+</ng-template>
+
+<app-grid
+  [dataSource]='dataSource'
+>
+  
+</app-grid>
+
+ <div *appTemplate='let item of "a"'>
+   {{item}}
+ </div>

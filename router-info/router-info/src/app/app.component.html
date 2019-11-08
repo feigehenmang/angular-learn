@@ -7,7 +7,9 @@
     <a [routerLinkActive]="'active'"  [routerLinkActiveOptions]='{exact: true}' [routerLink]="[ '/first-load', 'high', '11' ]">11</a>
     <a [routerLinkActive]="'active'" [routerLinkActiveOptions]='{exact: true}'
        [routerLink]="[ '/first-load', 'second' ]">懒加载模块</a>
-    <a [routerLinkActive]="'active'"  [routerLinkActiveOptions]='{exact: true}' [routerLink]="[ '/template' ]">Template</a>
+    <a [routerLinkActive]="'active'" [routerLinkActiveOptions]='{exact: true}'
+       [routerLink]="[ '/template' ]">Template</a>
+    <a [routerLinkActive]="'active'"  [routerLinkActiveOptions]='{exact: true}' [routerLink]="[ '/custom' ]">Custom</a>
   </li>
 </ul>
 <div [@routeAnimation]='getAnimationData(routerOutlet)'>
